@@ -1,0 +1,708 @@
+{% extends 'dashboard/sidebar.html' %}
+
+{% block content %}
+{% load static %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+                                <!--- main content --->
+                                <div class="page-wrapper">
+                                    <!-- Page-header start -->
+
+                               <center>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+    </center>
+                                    <div class="page-header">
+                                        <div class="row align-items-end">
+                                            <div class="col-lg-8">
+                                                <div class="page-header-title">
+                                                    <div class="d-inline">
+                                                        <h4>Franchise Withdraw</h4>
+                                                        <span>Get withdraw in a minute.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Page-header end -->
+
+                                    <!-- Page body start -->
+                                    <div class="page-body navbar-page">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <!-- Default Navbar card start -->
+                                                <div class="card">
+                                                    <div class="card-block">
+                                                        <div class="row row d-flex justify-content-center">
+
+                                                            <div class="card" style="width: 100%;">
+                                                                <div class="card-body d-flex justify-content-center" style="padding-left: 0">
+                                                                    <div class="col-sm-12" style="max-width: max-content;">
+                                                                        <style>
+                                                                            .cnt tr {
+                                                                                display: block;
+                                                                                margin: 0 !important;
+                                                                                padding: 4px 0px !important;
+                                                                            }
+
+                                                                            .tda {
+                                                                                width: 88px;
+                                                                            }
+
+                                                                            .tdb {}
+
+                                                                            .input-group {
+                                                                                width: 200px !important;
+                                                                            }
+
+                                                                            .bold {
+                                                                                font-weight: bold;
+                                                                            }
+
+                                                                        </style>
+                                                                        <div class="messagebox" id="messagebox"></div>
+                                                                        <form method="POST" action="{% url 'franchise_withdraw' %}"  style="">{% csrf_token %}
+                                                                        <h4>Available Balance   &nbsp;&nbsp;&nbsp;$ {{ bal }}</h4>
+
+                                                                        <br/>
+                                                                        <p style="color:red;">withdrawal fee is 10%</p>
+                                                                        <br/>
+                                                                            <table class="cnt">
+                                                                                <tr>
+                                                                                    <td class="tda">Select Country: </td>
+                                                                                    <td class="tdb">
+                                                                                        <!-- Select Service -->
+                                                                                        <select class="input-group form-control" name="country">
+                                                                                            <option value="usa"  >USA</option>
+                                                                                            <option value="uae" >UAE</option>
+                                                                                            <option value="malaysia" >Malaysia</option>
+                                                                                            <option value="canada" >Canada</option>
+                                                                                            <option value="singapore" >Singapore</option>
+                                                                                            <option value="india" >India</option>
+                                                                                            <option value="bangladesh"   selected>Bangladesh</option>
+
+                                                                                        </select>
+
+                                                                                        <!-- End Select Service -->
+                                                                                    </td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                    <td class="tda">Amount:</td>
+                                                                                    <td class="tdb">
+                                                                                        <div class="input-group" style="">
+                                                                                            <input type="number" class="form-control" name="amount"
+                                                                                            id="amount"
+
+                                                                                            placeholder="Amount" required>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+
+
+                                                                                 <tr>
+                                                                                    <td class="tda">Payment Method: </td>
+                                                                                    <td class="tdb">
+                                                                                        <!-- Select Service -->
+                                                                                        <select class="input-group form-control" name="country" id="method_new" required>
+                                                                                            <option selected value=""  >select</option>
+                                                                                            <option value="mobile banking"  >Mobile Banking</option>
+                                                                                            <option value="online bank transfer" >Online Bank Transfer</option>
+                                                                                        </select>
+
+                                                                                        <!-- End Select Service -->
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table><br>
+                                                                            <button class="btn btn-primary btn-skew" id="" type="submit">Withdraw</button>
+                                                                        </form>
+
+
+
+
+                                                                        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+                                                                        <script id="INLINE_PEN_JS_ID">
+                                                                            //test for getting url value from attr
+                                                                            // var img1 = $('.test').attr("data-thumbnail");
+                                                                            // console.log(img1);
+
+                                                                            //test for iterating over child elements
+                                                                            var langArray = [];
+                                                                            $(".vodiapicker option").each(function(event) {
+                                                                                var img = $(this).attr("data-thumbnail");
+                                                                                var text = this.innerText;
+                                                                                var value = $(this).val();
+                                                                                var item =
+                                                                                    '<li><img src="' +
+                                                                                    img +
+                                                                                    '" alt="" value="' +
+                                                                                    value +
+                                                                                    '"/><span>' +
+                                                                                    text +
+                                                                                    "</span></li>";
+                                                                                langArray.push(item);
+
+                                                                            });
+
+                                                                            $("#a").html(langArray);
+
+                                                                            //Set the button value to the first el of the array
+                                                                            $(".btn-select").html(langArray[0]);
+                                                                            $(".btn-select").attr("value", "pm");
+
+                                                                            //change button stuff on click
+                                                                            $("#a li").click(function(event) {
+                                                                                var img = $(this).find("img").attr("src");
+                                                                                var value = $(this).find("img").attr("value");
+                                                                                var text = this.innerText;
+                                                                                var item =
+                                                                                    '<li><img src="' + img + '" alt="" /><span>' + text + "</span></li>";
+                                                                                $(".btn-select").html(item);
+                                                                                $(".btn-select").attr("value", value);
+                                                                                $(".b").toggle();
+                                                                                event.preventDefault();
+                                                                                //console.log(value);
+                                                                            });
+
+                                                                            $(".btn-select").click(function(event) {
+                                                                                $(".b").toggle();
+                                                                                event.preventDefault();
+                                                                            });
+
+                                                                            //check local storage for the lang
+                                                                            var sessionLang = localStorage.getItem("lang");
+                                                                            if (sessionLang) {
+                                                                                //find an item with value of sessionLang
+                                                                                var langIndex = langArray.indexOf(sessionLang);
+                                                                                $(".btn-select").html(langArray[langIndex]);
+                                                                                $(".btn-select").attr("value", sessionLang);
+                                                                            } else {
+                                                                                var langIndex = langArray.indexOf("ch");
+                                                                                console.log(langIndex);
+                                                                                $(".btn-select").html(langArray[langIndex]);
+                                                                                //$('.btn-select').attr('value', 'en');
+                                                                            }
+                                                                            //# sourceURL=pen.js
+
+                                                                        </script>
+                                                                        <style class="INLINE_PEN_STYLESHEET_ID">
+                                                                            .vodiapicker {
+                                                                                display: none;
+                                                                            }
+
+                                                                            #a {
+                                                                                padding-left: 0px;
+                                                                                overflow: auto;
+                                                                                height: 200px;
+                                                                            }
+
+                                                                            #a img,
+                                                                            .btn-select img {
+                                                                                width: 50px;
+
+                                                                            }
+
+                                                                            #a li {
+                                                                                list-style: none;
+                                                                                padding-top: 5px;
+                                                                                padding-bottom: 5px;
+                                                                            }
+
+                                                                            #a li:hover {
+                                                                                background-color: #F4F3F3;
+                                                                            }
+
+                                                                            #a li img {
+                                                                                margin: 5px;
+                                                                            }
+
+                                                                            #a li span,
+                                                                            .btn-select li span {
+                                                                                margin-left: 5px;
+                                                                            }
+
+                                                                            /* item list */
+
+                                                                            .b {
+                                                                                display: none;
+                                                                                width: 100%;
+                                                                                max-width: 350px;
+                                                                                box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+                                                                                border: 1px solid rgba(0, 0, 0, .15);
+                                                                                border-radius: 5px;
+                                                                                position: absolute;
+                                                                                z-index: 9999;
+                                                                                background: white;
+                                                                                width: 200px;
+
+                                                                            }
+
+                                                                            .open {
+                                                                                display: show !important;
+                                                                            }
+
+                                                                            .btn-select {
+                                                                                margin-top: 10px;
+                                                                                width: 100%;
+                                                                                max-width: 350px;
+                                                                                height: 50px;
+                                                                                border-radius: 5px;
+                                                                                background-color: #fff;
+                                                                                border: 1px solid #ccc;
+
+                                                                            }
+
+                                                                            .btn-select li {
+                                                                                list-style: none;
+                                                                                float: left;
+                                                                                padding-bottom: 0px;
+                                                                            }
+
+                                                                            .btn-select:hover li {
+                                                                                margin-left: 0px;
+                                                                            }
+
+                                                                            .btn-select:hover {
+                                                                                background-color: #F4F3F3;
+                                                                                border: 1px solid transparent;
+                                                                                box-shadow: inset 0 0px 0px 1px #ccc;
+
+
+                                                                            }
+
+                                                                            .btn-select:focus {
+                                                                                outline: none;
+                                                                            }
+
+                                                                            .lang-select {
+                                                                                margin-left: ;
+                                                                                width: 200px;
+                                                                            }
+
+                                                                        </style>
+                                                                        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+                                                                        <script id="INLINE_PEN_JS_ID">
+                                                                            //test for getting url value from attr
+                                                                            // var img1 = $('.test').attr("data-thumb");
+                                                                            // console.log(img1);
+
+                                                                            //test for iterating over child elements
+                                                                            var langArrayn = [];
+                                                                            $(".vodiapicker2 option").each(function() {
+                                                                                var img = $(this).attr("data-thumb");
+                                                                                var text = this.innerText;
+                                                                                var value = $(this).val();
+                                                                                var item =
+                                                                                    '<li><img src="' +
+                                                                                    img +
+                                                                                    '" alt="" value="' +
+                                                                                    value +
+                                                                                    '"/><span>' +
+                                                                                    text +
+                                                                                    "</span></li>";
+                                                                                langArrayn.push(item);
+                                                                            });
+
+                                                                            $("#an").html(langArrayn);
+
+                                                                            //Set the button value to the first el of the array
+                                                                            $(".btn-select2").html(langArrayn[0]);
+                                                                            $(".btn-select2").attr("value", "en");
+
+                                                                            //change button stuff on click
+                                                                            $("#an li").click(function(event) {
+                                                                                var img = $(this).find("img").attr("src");
+                                                                                var value = $(this).find("img").attr("value");
+                                                                                var text = this.innerText;
+                                                                                var item =
+                                                                                    '<li><img src="' + img + '" alt="" /><span>' + text + "</span></li>";
+                                                                                $(".btn-select2").html(item);
+                                                                                $(".btn-select2").attr("value", value);
+                                                                                $(".bn").toggle();
+                                                                                event.preventDefault();
+                                                                                //console.log(value);
+                                                                            });
+
+                                                                            $(".btn-select2").click(function(event) {
+                                                                                $(".bn").toggle();
+                                                                                event.preventDefault();
+                                                                            });
+
+                                                                            //check local storage for the lang
+                                                                            var sessionLang = localStorage.getItem("lang");
+                                                                            if (sessionLang) {
+                                                                                //find an item with value of sessionLang
+                                                                                var langIndex = langArrayn.indexOf(sessionLang);
+                                                                                $(".btn-select2").html(langArrayn[langIndex]);
+                                                                                $(".btn-select2").attr("value", sessionLang);
+                                                                            } else {
+                                                                                var langIndex = langArrayn.indexOf("ch");
+                                                                                console.log(langIndex);
+                                                                                $(".btn-select2").html(langArrayn[langIndex]);
+                                                                                //$('.btn-select2').attr('value', 'en');
+                                                                            }
+                                                                            //# sourceURL=pen.js
+
+                                                                        </script>
+                                                                        <style class="INLINE_PEN_STYLESHEET_ID">
+                                                                            .vodiapicker2 {
+                                                                                display: none;
+                                                                            }
+
+                                                                            #an {
+                                                                                padding-left: 0px;
+                                                                            }
+
+                                                                            #an img,
+                                                                            .btn-select2 img {
+                                                                                width: 50px;
+
+                                                                            }
+
+                                                                            #an li {
+                                                                                list-style: none;
+                                                                                padding-top: 5px;
+                                                                                padding-bottom: 5px;
+                                                                            }
+
+                                                                            #an li:hover {
+                                                                                background-color: #F4F3F3;
+                                                                            }
+
+                                                                            #an li img {
+                                                                                margin: 5px;
+                                                                            }
+
+                                                                            #an li span,
+                                                                            .btn-select2 li span {
+                                                                                margin-left: 5px;
+                                                                            }
+
+                                                                            /* item list */
+
+                                                                            .bn {
+                                                                                display: none;
+                                                                                width: 100%;
+                                                                                max-width: 350px;
+                                                                                box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+                                                                                border: 1px solid rgba(0, 0, 0, .15);
+                                                                                border-radius: 5px;
+                                                                                position: absolute;
+                                                                                z-index: 9999;
+                                                                                background: white;
+                                                                                width: 200px;
+
+                                                                            }
+
+                                                                            .open {
+                                                                                display: show !important;
+                                                                            }
+
+                                                                            .btn-select2 {
+                                                                                margin-top: 10px;
+                                                                                width: 100%;
+                                                                                max-width: 350px;
+                                                                                height: 50px;
+                                                                                border-radius: 5px;
+                                                                                background-color: #fff;
+                                                                                border: 1px solid #ccc;
+
+                                                                            }
+
+                                                                            .btn-select2 li {
+                                                                                list-style: none;
+                                                                                float: left;
+                                                                                padding-bottom: 0px;
+                                                                            }
+
+                                                                            .btn-select2:hover li {
+                                                                                margin-left: 0px;
+                                                                            }
+
+                                                                            .btn-select2:hover {
+                                                                                background-color: #F4F3F3;
+                                                                                border: 1px solid transparent;
+                                                                                box-shadow: inset 0 0px 0px 1px #ccc;
+
+
+                                                                            }
+
+                                                                            .btn-select2:focus {
+                                                                                outline: none;
+                                                                            }
+
+                                                                            .lang-select2 {
+                                                                                margin-left: ;
+                                                                                width: 200px;
+                                                                            }
+
+                                                                        </style>
+
+                                                                        <!--- End Payment Method --->
+
+
+
+
+
+
+
+
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Default Navbar card end -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Page body end -->
+                                </div>
+
+
+<div class="container">
+<!--  <h2>Modal Example</h2>-->
+  <!-- Trigger the modal with a button -->
+<!--  <button type="button" class="btn btn-info btn-lg" id="open_modal"  data-toggle="modal" data-target="#myModal">Open Modal</button>-->
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog" style="" >
+    <div class="modal-dialog" style="">
+
+      <!-- Modal content-->
+      <div class="modal-content" style="margin-top:100px;margin-left:-45%;width: 200%;height:400px;background-color:#404e67;color:#ed7b82;">
+
+
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+        <div class="card-body d-flex justify-content-center">
+            <div class="col-sm-12" style="max-width: max-content;">
+                <form action="{% url 'deposit' %}" method="GET">
+                <div class="input-group">
+<!--                    <span class="input-group-addon" id="basic-addon2">$</span>-->
+<!--                <input type="text" class="form-control" name="PAYMENT_AMOUNT" placeholder="Amount" value="20"-->
+<!--                readonly>-->
+                    <input type="hidden" class="form-control" name="PAYMENT_AMOUNT"  value="20">
+                 </div>
+                <input type="hidden" name="PAYEE_ACCOUNT" value="U29488895">
+                <input type="hidden" name="PAYEE_NAME" value="Profiteebd">
+                <input type="hidden" name="PAYMENT_ID" value="{{user_id}}">
+
+                <input type="hidden" name="PAYMENT_UNITS" value="USD">
+                <input type="hidden" name="STATUS_URL" value="{{request.get_host }}/dashboard/payment_status/">
+                <input type="hidden" name="PAYMENT_URL" value="{{request.get_host }}/dashboard/premium_plan_success/">
+                <input type="hidden" name="PAYMENT_URL_METHOD" value="POST">
+                <input type="hidden" name="NOPAYMENT_URL" value="{{request.get_host }}/dashboard/payment_failed/">
+
+                <input type="hidden" name="NOPAYMENT_URL_METHOD" value="POST">
+                <input type="hidden" name="PAYMENT_URL_METHOD" value="POST">
+                <input type="hidden" name="ORDER_NUM" value="{{order_number}}">
+                <input type="hidden" name="CUST_NUM" value="{{user_id}}">
+                <input type="hidden" name="SUGGESTED_MEMO" value="">
+                <input type="hidden" name="BAGGAGE_FIELDS" value="">
+                <br/>
+
+                <button type="submit" class=" m-b-0 form-control" style="font-size:25px;">Pay now( directly go the payment gateway)</button>
+
+            </form>
+                <br/>
+                <br/>
+
+
+            <form action="{% url 'withdraw_request_premium' %}" method="GET">
+                {% csrf_token %}
+
+                <button type="submit" class=" m-b-0 form-control" id="withdraw_submit" style="font-size:25px;">Pay with account balance </button>
+
+            </form>
+
+
+            </div>
+        </div>
+          <div class="">
+          <button type="button" class="btn btn-default" data-dismiss="modal" style="float:right;background-color:#fff">Close</button>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="container">
+<!--  <h2>Modal Example</h2>-->
+  <!-- Trigger the modal with a button -->
+<!--  <button type="button" class="btn btn-info btn-lg" id="open_modal"  data-toggle="modal" data-target="#myModal">Open Modal</button>-->
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal1" role="dialog" style="" >
+    <div class="modal-dialog" style="">
+
+      <!-- Modal content-->
+      <div class="modal-content" style="margin-top:100px;margin-left:-45%;width: 200%;height:400px;background-color:#404e67;color:#ed7b82;">
+
+
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+        <div class="card-body d-flex justify-content-center">
+            <div class="col-sm-12" style="max-width: max-content;">
+                <form action="{% url 'deposit' %}" method="GET">
+                <div class="input-group">
+<!--                    <span class="input-group-addon" id="basic-addon2">$</span>-->
+<!--                <input type="text" class="form-control" name="PAYMENT_AMOUNT" placeholder="Amount" value="20"-->
+<!--                readonly>-->
+                    <input type="hidden" class="form-control" name="PAYMENT_AMOUNT"  value="20">
+                 </div>
+                <input type="hidden" name="PAYEE_ACCOUNT" value="U29488895">
+                <input type="hidden" name="PAYEE_NAME" value="Profiteebd">
+                <input type="hidden" name="PAYMENT_ID" value="{{user_id}}">
+
+                <input type="hidden" name="PAYMENT_UNITS" value="USD">
+                <input type="hidden" name="STATUS_URL" value="{{request.get_host }}/dashboard/payment_status/">
+                <input type="hidden" name="PAYMENT_URL" value="{{request.get_host }}/dashboard/premium_plan_success/">
+                <input type="hidden" name="PAYMENT_URL_METHOD" value="POST">
+                <input type="hidden" name="NOPAYMENT_URL" value="{{request.get_host }}/dashboard/payment_failed/">
+
+                <input type="hidden" name="NOPAYMENT_URL_METHOD" value="POST">
+                <input type="hidden" name="PAYMENT_URL_METHOD" value="POST">
+                <input type="hidden" name="ORDER_NUM" value="{{order_number}}">
+                <input type="hidden" name="CUST_NUM" value="{{user_id}}">
+                <input type="hidden" name="SUGGESTED_MEMO" value="">
+                <input type="hidden" name="BAGGAGE_FIELDS" value="">
+                <br/>
+
+                    <h1>Second option</h1>
+                    wfdfsfd
+                     <select class="vodiapicker form-control" name="method">
+
+                                                                                            <option value="bkash" data-thumbnail="{% static 'dashboard-static/payicn/bkash.svg' %}">Bkash</option>
+                                                                                            <option value="rocket" data-thumbnail="{% static 'dashboard-static/payicn/rocket.png' %}">Rocket</option>
+                                                                                            <option value="nagad" data-thumbnail="{% static 'dashboard-static/payicn/nagad.png' %}">nagad</option>
+
+                                                                                        </select>
+
+                <button type="submit" class=" m-b-0 form-control" style="font-size:25px;">Pay now( directly go the payment gateway)</button>
+
+            </form>
+                <br/>
+                <br/>
+
+
+            <form action="{% url 'withdraw_request_premium' %}" method="GET">
+                {% csrf_token %}
+
+                <button type="submit" class=" m-b-0 form-control" id="withdraw_submit" style="font-size:25px;">Pay with account balance </button>
+
+            </form>
+
+
+            </div>
+        </div>
+          <div class="">
+          <button type="button" class="btn btn-default" data-dismiss="modal" style="float:right;background-color:#fff">Close</button>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<form action="https://perfectmoney.com/api/step1.asp" method="POST">-->
+            <form action="" method="POST">
+                <div class="input-group">
+<!--                    <span class="input-group-addon" id="basic-addon2">$</span>-->
+                <input type="hidden" class="form-control" name="PAYMENT_AMOUNT"  value="20">
+                 </div>
+                <input type="hidden" name="PAYEE_ACCOUNT" value="U29488895">
+                <input type="hidden" name="PAYEE_NAME" value="Profiteebd">
+                <input type="hidden" name="PAYMENT_ID" value="{{user_id}}">
+
+                <input type="hidden" name="PAYMENT_UNITS" value="USD">
+                <input type="hidden" name="STATUS_URL" value="http://127.0.0.1:8000/dashboard/payment_status/">
+                <input type="hidden" name="PAYMENT_URL" value="http://127.0.0.1:8000/dashboard/premium_plan_success/">
+                <input type="hidden" name="PAYMENT_URL_METHOD" value="POST">
+                <input type="hidden" name="NOPAYMENT_URL" value="http://127.0.0.1:8000/dashboard/payment_failed/">
+
+                <input type="hidden" name="NOPAYMENT_URL_METHOD" value="POST">
+                <input type="hidden" name="PAYMENT_URL_METHOD" value="POST">
+                <input type="hidden" name="ORDER_NUM" value="{{order_number}}">
+                <input type="hidden" name="CUST_NUM" value="{{user_id}}">
+                <input type="hidden" name="SUGGESTED_MEMO" value="">
+                <input type="hidden" name="BAGGAGE_FIELDS" value="">
+<!--                <button type="submit" class=" m-b-0 form-control" id="ppay_now" style="font-size:30px;">Pay Now</button>-->
+                  <button type="button" class=" m-b-0 form-control" id="open_modal1"  hidden style="font-size:30px;" data-toggle="modal"  data-target="#myModal">Pay now</button>
+            </form>
+
+
+      <form action="https://perfectmoney.com/api/step1.asp" method="POST">-->
+            <form action="" method="POST">
+                <div class="input-group">
+<!--                    <span class="input-group-addon" id="basic-addon2">$</span>-->
+                <input type="hidden" class="form-control" name="PAYMENT_AMOUNT"  value="20">
+                 </div>
+                <input type="hidden" name="PAYEE_ACCOUNT" value="U29488895">
+                <input type="hidden" name="PAYEE_NAME" value="Profiteebd">
+                <input type="hidden" name="PAYMENT_ID" value="{{user_id}}">
+
+                <input type="hidden" name="PAYMENT_UNITS" value="USD">
+                <input type="hidden" name="STATUS_URL" value="http://127.0.0.1:8000/dashboard/payment_status/">
+                <input type="hidden" name="PAYMENT_URL" value="http://127.0.0.1:8000/dashboard/premium_plan_success/">
+                <input type="hidden" name="PAYMENT_URL_METHOD" value="POST">
+                <input type="hidden" name="NOPAYMENT_URL" value="http://127.0.0.1:8000/dashboard/payment_failed/">
+
+                <input type="hidden" name="NOPAYMENT_URL_METHOD" value="POST">
+                <input type="hidden" name="PAYMENT_URL_METHOD" value="POST">
+                <input type="hidden" name="ORDER_NUM" value="{{order_number}}">
+                <input type="hidden" name="CUST_NUM" value="{{user_id}}">
+                <input type="hidden" name="SUGGESTED_MEMO" value="">
+                <input type="hidden" name="BAGGAGE_FIELDS" value="">
+
+<!--                <button type="submit" class=" m-b-0 form-control" id="ppay_now" style="font-size:30px;">Pay Now</button>-->
+                  <button type="button" class=" m-b-0 form-control" id="open_modal"  hidden style="font-size:30px;" data-toggle="modal"  data-target="#myModal1">Pay now</button>
+
+            </form>
+
+
+<script>
+
+ $(document).ready(function() {
+            $('#method_new').change(function() {
+
+                    var vall = $('#method_new').val();
+                    var final_val='';
+                    console.log('vall ---',vall);
+
+
+                    if(vall==="mobile banking"){
+                    document.getElementById("open_modal").click();
+                    }
+                    else if(vall==="online bank transfer"){
+                    document.getElementById("open_modal1").click();
+                    }
+                });
+    });
+
+</script>
+
+                                {% endblock content %}
+
+
+
